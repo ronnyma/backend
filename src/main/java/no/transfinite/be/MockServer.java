@@ -39,6 +39,27 @@ public class MockServer
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"name\" : \"Per\", \"id\" : 4489}")));
 
+        stubFor(get(urlEqualTo("/id/Askeladd")).inScenario("Delete")
+                .whenScenarioStateIs(STARTED)
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"name\" : \"Askeladd\", \"id\" : 9999}")));
+
+        stubFor(get(urlEqualTo("/id/Askeladd")).inScenario("Delete")
+                .whenScenarioStateIs("Deleted")
+                .willReturn(aResponse()
+                        .withStatus(404)));
+
+
+        stubFor(delete(urlEqualTo("/id/Askeladd")).inScenario("Delete")
+                .whenScenarioStateIs(STARTED)
+                .willReturn(aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                .withBody("{\"msg\" : \"Deleted Askeladd\"}"))
+                .willSetStateTo("Deleted"));
+
+
         stubFor(delete(urlEqualTo("/id/Per"))
                 .willReturn(unauthorized()));
 
