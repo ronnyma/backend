@@ -38,7 +38,7 @@ public class MockServer
         stubFor(get(urlEqualTo("/id/Paal"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
-                        .withBody("{\"name\" : \"Per\", \"id\" : 4489}")));
+                        .withBody("{\"name\" : \"Paal\", \"id\" : 4489}")));
 
         stubFor(get(urlEqualTo("/id/Askeladd")).inScenario("Delete")
                 .whenScenarioStateIs(STARTED)
@@ -90,13 +90,6 @@ public class MockServer
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"msg\" : \"Salary up for audit by supervisor.\"}"))
                 .willSetStateTo("C"));
-
-//        stubFor(get(urlEqualTo("/salary/Per")).inScenario("UpSalary")
-//                //.whenScenarioStateIs("B")
-//                .willReturn(aResponse()
-//                                .withStatus(102))
-//                        .willSetStateTo("C"));
-
 
         stubFor(get(urlEqualTo("/salary/Per")).inScenario("UpSalary")
                 .whenScenarioStateIs("C")
