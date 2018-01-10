@@ -26,8 +26,9 @@ public class MockServer
 
         stubFor(get(urlEqualTo("/name"))
                 .willReturn(aResponse()
-                        .withHeader("Content-Type", "text/plain")
-                        .withBody("Greker Greker")));
+                        .withHeader("Content-Type", "application/json")
+                        .withStatus(200)
+                        .withBody("{\"msg\" : \"Greker\"}")));
 
         stubFor(get(urlEqualTo("/id/Per"))
                 .willReturn(aResponse()
@@ -54,9 +55,7 @@ public class MockServer
         stubFor(delete(urlEqualTo("/id/Askeladd")).inScenario("Delete")
                 .whenScenarioStateIs(STARTED)
                 .willReturn(aResponse()
-                                .withStatus(200)
-                                .withHeader("Content-Type", "application/json")
-                .withBody("{\"msg\" : \"Deleted Askeladd\"}"))
+                                .withStatus(200))
                 .willSetStateTo("Deleted"));
 
 
@@ -87,16 +86,17 @@ public class MockServer
         stubFor(put(urlEqualTo("/salary/Per")).inScenario("UpSalary")
                 .whenScenarioStateIs(STARTED)
                 .willReturn(aResponse()
+                        .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"msg\" : \"Salary up for audit by supervisor.\"}"))
-                .willSetStateTo("B"));
-
-        stubFor(get(urlEqualTo("/salary/Per")).inScenario("UpSalary")
-                .whenScenarioStateIs("B")
-                .willReturn(aResponse()
-                        .withHeader("Content-Type", "application/json")
-                        .withBody("{\"msg\" : \"Audit not yet completed.\"}"))
                 .willSetStateTo("C"));
+
+//        stubFor(get(urlEqualTo("/salary/Per")).inScenario("UpSalary")
+//                //.whenScenarioStateIs("B")
+//                .willReturn(aResponse()
+//                                .withStatus(102))
+//                        .willSetStateTo("C"));
+
 
         stubFor(get(urlEqualTo("/salary/Per")).inScenario("UpSalary")
                 .whenScenarioStateIs("C")
