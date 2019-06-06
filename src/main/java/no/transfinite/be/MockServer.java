@@ -28,7 +28,7 @@ public class MockServer
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withStatus(200)
-                        .withBody("{\"msg\" : \"Greker\"}")));
+                        .withBody("{\"msg\" : \"Greger\"}")));
 
         stubFor(get(urlEqualTo("/id/Per"))
                 .willReturn(aResponse()
